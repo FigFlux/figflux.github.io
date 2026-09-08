@@ -10,7 +10,7 @@ body {
 .wrap { width: min(1240px, calc(100% - 80px)); margin: 48px auto 56px; }
 h1 { margin: 0 0 36px; font-size: 32px; line-height: 1.2; font-weight: 600; letter-spacing: -1px; }
 .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; align-items: start; }
-.case { min-width: 0; padding-bottom: 24px; border-bottom: 1px solid #e5e8e8; }
+.case { min-width: 0; padding: 20px; border: 1px solid #ced8de; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px #182b3705; }
 .case-heading { margin-bottom: 18px; min-height: 78px; }
 h2 { margin: 0 0 7px; font-size: 20px; font-weight: 600; line-height: 1.4; }
 .case-heading p { margin: 0; font-size: 14px; color: #627078; }
@@ -74,6 +74,7 @@ video:focus-visible, a:focus-visible { outline: 3px solid #187566; outline-offse
   .wrap { width: calc(100% - 32px); margin: 28px auto 32px; }
   h1 { font-size: 27px; margin-bottom: 24px; }
   .gallery { gap: 28px 20px; }
+  .case { padding: 16px; }
   h2 { font-size: 18px; }
 }
 @media (max-width: 620px) {

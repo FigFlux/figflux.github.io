@@ -42,9 +42,12 @@ for (const card of document.querySelectorAll('.case')) {
     play.textContent = player.playing ? 'Ⅱ Pause' : '▶ Play';
     play.setAttribute('aria-label', `${player.playing ? 'Pause' : 'Play'} ${card.querySelector('h2').textContent}`);
     card.dataset.playing = String(player.playing);
-    for (const button of keyframes) {
-      button.setAttribute('aria-pressed', String(Boolean(player.svg) && Math.abs(Number(button.dataset.progress) - player.progress) < 1e-6));
-    }
+    // Keep the most recently reached keyframe highlighted between frames.
+    // Match the prototype's tolerance for the scrubber's 0.001 step.
+    const currentKeyframe = visiblePositions.findLastIndex(position => position <= player.progress + .001);
+    keyframes.forEach((button, index) => {
+      button.setAttribute('aria-pressed', String(Boolean(player.svg) && index === currentKeyframe));
+    });
     for (const button of segments) {
       const playing = player.playing && player.progress >= Number(button.dataset.start) && player.progress < Number(button.dataset.end);
       button.textContent = playing ? 'Ⅱ' : '▶';
