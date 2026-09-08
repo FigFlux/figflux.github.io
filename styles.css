@@ -1,0 +1,83 @@
+:root { color-scheme: light; }
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #fff;
+  color: #182b37;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.wrap { width: min(1240px, calc(100% - 80px)); margin: 48px auto 56px; }
+h1 { margin: 0 0 36px; font-size: 32px; line-height: 1.2; font-weight: 600; letter-spacing: -1px; }
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; align-items: start; }
+.case { min-width: 0; padding-bottom: 24px; border-bottom: 1px solid #e5e8e8; }
+.case-heading { margin-bottom: 18px; min-height: 78px; }
+h2 { margin: 0 0 7px; font-size: 20px; font-weight: 600; line-height: 1.4; }
+.case-heading p { margin: 0; font-size: 14px; color: #627078; }
+.case-description { margin: 14px 0 0; color: #627078; font-size: 13px; line-height: 1.65; }
+.original { margin-top: 20px; }
+.original summary { cursor: pointer; color: #52676b; font-size: 13px; width: fit-content; padding: 4px 0; }
+.original[open] summary { margin-bottom: 12px; }
+figure { margin: 0; min-width: 0; }
+figcaption { margin-bottom: 12px; color: #627078; font-size: 13px; }
+.source a { display: block; border: 1px solid #e5e8e8; border-radius: 5px; padding: 12px; }
+.source img { display: block; width: 100%; height: auto; }
+.citation { margin: 18px 0 0; font-size: 12px; line-height: 1.6; }
+.citation a { color: #627078; text-decoration-color: #bdc6ca; text-underline-offset: 3px; }
+.animation-stage { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid #e5e8e8; border-radius: 5px; background: white; }
+.animation-stage > img, .animation-stage > svg { display: block; width: 100%; height: 100%; object-fit: contain; }
+.animation-host { transform-origin: top left; }
+.playback { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.playback button { border: 1px solid #d9dfdf; background: #fff; color: #284f48; padding: 7px 10px; border-radius: 5px; cursor: pointer; white-space: nowrap; font: inherit; font-size: 12px; }
+.playback .play { min-width: 78px; }
+.playback output { margin-left: auto; color: #627078; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Prototype timeline: a shared track for scrubbing, keyframes and segments. */
+.timeline { --source: #3d659d; --target: #bd6745; margin-top: 18px; }
+.keyframes { --progress: 0%; position: relative; height: 56px; margin: 0 20px; }
+.track-line, .track-progress { position: absolute; top: 14px; left: 0; height: 2px; border-radius: 2px; pointer-events: none; }
+.track-line { right: 0; background: #d7dde4; }
+.track-progress { z-index: 1; width: var(--progress); background: var(--source); }
+.track-playhead { position: absolute; z-index: 2; top: 3px; left: var(--progress); width: 2px; height: 23px; transform: translateX(-50%); border-radius: 2px; pointer-events: none; background: var(--target); box-shadow: 0 0 0 2px #fff; }
+.track-playhead::before { position: absolute; top: -2px; left: 50%; width: 8px; height: 5px; transform: translateX(-50%); border-radius: 3px 3px 1px 1px; background: var(--target); content: ''; }
+.timeline input { position: absolute; z-index: 2; top: 2px; left: -6px; width: calc(100% + 12px); height: 25px; margin: 0; opacity: 0; cursor: ew-resize; }
+.keyframe-nodes { display: contents; }
+.keyframe { position: absolute; z-index: 3; top: 0; width: 40px; display: grid; grid-template-rows: 29px 18px; justify-items: center; transform: translateX(-50%); border: 0; padding: 0; background: transparent; color: #8a919a; text-align: center; cursor: pointer; }
+.keyframe-dot { width: 14px; height: 14px; display: grid; place-items: center; align-self: center; transform: rotate(45deg); border: 2px solid #8d99a6; border-radius: 2px; background: #fff; box-shadow: 0 0 0 4px #fff; }
+.keyframe-dot i { width: 4px; height: 4px; border-radius: 1px; background: #8d99a6; }
+.keyframe-number { align-self: end; font: 600 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .04em; }
+.keyframe:hover .keyframe-dot { border-color: var(--source); }
+.keyframe[aria-pressed="true"] { color: var(--source); }
+.keyframe[aria-pressed="true"] .keyframe-dot { border-color: var(--source); background: var(--source); box-shadow: 0 0 0 4px #fff, 0 3px 9px #3d659d33; }
+.keyframe[aria-pressed="true"] .keyframe-dot i { background: #fff; }
+.segment { position: absolute; z-index: 4; top: 0; height: 29px; display: grid; align-items: center; transform: translateX(-50%); }
+.segment-play { width: 27px; height: 27px; display: grid; place-items: center; border: 0; border-radius: 50%; padding: 0 0 0 2px; color: var(--source); background: #edf2f8; font-size: 10px; box-shadow: 0 0 0 4px #fff; cursor: pointer; }
+.segment-play:hover { color: #fff; background: var(--source); }
+.segment-play.is-playing { color: #fff; background: var(--target); }
+.timeline.dense .keyframe { width: 26px; }
+.timeline.dense .segment-play { width: 21px; height: 21px; font-size: 8px; box-shadow: 0 0 0 3px #fff; }
+.timeline.dense .keyframe-dot { width: 12px; height: 12px; box-shadow: 0 0 0 3px #fff; }
+.segment-play:focus-visible, .keyframe:focus-visible, .playback button:focus-visible, summary:focus-visible { outline: 2px solid #3d659d; outline-offset: 4px; }
+.keyframes:has(input:focus-visible) { outline: 2px solid #3d659d; outline-offset: 5px; border-radius: 3px; }
+.animation-error { color: #963c25; font-size: 13px; }
+video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid #e5e8e8;
+  border-radius: 5px;
+}
+video:focus-visible, a:focus-visible { outline: 3px solid #187566; outline-offset: 4px; }
+.video-error { color: #963c25; font-size: 13px; line-height: 1.5; margin: 10px 0 0; }
+.video-error a { color: inherit; }
+@media (max-width: 900px) {
+  .wrap { width: calc(100% - 32px); margin: 28px auto 32px; }
+  h1 { font-size: 27px; margin-bottom: 24px; }
+  .gallery { gap: 28px 20px; }
+  h2 { font-size: 18px; }
+}
+@media (max-width: 620px) {
+  .gallery { grid-template-columns: 1fr; }
+  .case-heading { min-height: 0; }
+}
